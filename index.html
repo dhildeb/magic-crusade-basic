@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="assets/style/main.css">
+  <link rel="stylesheet" href="assets/style/style.css">
+  <link rel="stylesheet" href="assets/scss/main.scss">
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+    integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+  <title>Magic Crusade</title>
+</head>
+
+<body>
+  <main>
+    <div class="d-flex justify-content-center" id="startGame">
+      <div class="stage">
+        <div class="layer"></div>
+        <div class="layer"></div>
+        <div class="layer"></div>
+        <div class="layer"></div>
+        <div class="layer"></div>
+        <div class="layer"></div>
+        <div class="layer"></div>
+        <div class="layer"></div>
+        <div class="layer"></div>
+        <div class="layer"></div>
+        <div class="layer"></div>
+        <div class="layer"></div>
+        <div class="layer"></div>
+        <div class="layer"></div>
+        <div class="layer"></div>
+        <div class="layer"></div>
+        <div class="layer"></div>
+        <div class="layer"></div>
+        <div class="layer"></div>
+        <div class="layer"></div>
+      </div>
+      <button class="btn btn-success mt-5" onclick="app.gameController.startGame()">Start Game</button>
+    </div>
+    <div class="container-fluid d-flex flex-column h-100 d-none" id="game">
+      <div class="row h-100">
+        <div class="col-5">
+          <div class="row h-100">
+            <h2 class="col-12" onclick="app.creaturesController.determineAction(null, 0)">Player 1</h2>
+            <div class="col-12">
+              Hp: <span id="player0">10</span>
+              <div id="magic0" title="magic"></div>
+            </div>
+            <div class="col-12 battle-field" dropzone="zone" ondragstart="" ondrop="">
+              <div class="row" id="battlefield0"></div>
+            </div>
+            <div class="col-12 hand">
+              <div class="row" id="hand0"></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-2 d-flex flex-column border border-dark rounded shadow bg-white" id="playerControls"></div>
+        <div class="col-5">
+          <div class="row h-100">
+            <h2 class="col-12" onclick="app.creaturesController.determineAction(null, 1)">Player 2</h2>
+            <div class="col-12">
+              Hp: <span id="player1">10</span>
+              <div id="magic1" title="magic"></div>
+            </div>
+            <div class="col-12 battle-field" dropzone="zone">
+              <div class="row" id="battlefield1"></div>
+            </div>
+            <div class="col-12 hand">
+              <div class="row" id="hand1"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </main>
+  <script>
+    document.addEventListener("dragstart", function (event) {
+      app.creaturesController.selectCreature(event.target.id)
+    })
+    document.addEventListener("dragover", function (event) {
+      event.preventDefault();
+    });
+    document.addEventListener("drop", function (event) {
+      event.preventDefault();
+      app.creaturesController.playCreature(event.target.id)
+    })
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="https://cdn.auth0.com/js/auth0-spa-js/1.15/auth0-spa-js.production.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/jakeoverall/auth0provider-client/browser/AuthProvider.browser.js"></script>
+  <script src="https://cdn.socket.io/4.1.1/socket.io.min.js"
+    integrity="sha384-cdrFIqe3RasCMNE0jeFG9xJHog/tgOVC1E9Lzve8LQN1g5WUHo0Kvk1mawWjxX7a"
+    crossorigin="anonymous"></script>
+
+  <script src="app/main.js" type="module"></script>
+</body>
+
+</html>
