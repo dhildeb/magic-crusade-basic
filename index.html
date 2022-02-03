@@ -15,7 +15,7 @@
 
 <body>
   <main>
-    <div class="d-flex justify-content-center" id="startGame">
+    <div class="d-flex justify-content-center" id="startPage">
       <div class="stage">
         <div class="layer"></div>
         <div class="layer"></div>
@@ -39,6 +39,7 @@
         <div class="layer"></div>
       </div>
       <button class="btn btn-success mt-5" onclick="app.gameController.startGame()">Start Game</button>
+      <button class="btn btn-info" onclick="goToCreationPage(event)">Create</button>
     </div>
     <div class="container-fluid d-flex flex-column h-100 d-none" id="game">
       <div class="row h-100">
@@ -77,7 +78,45 @@
     </div>
     </div>
   </main>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="https://cdn.auth0.com/js/auth0-spa-js/1.15/auth0-spa-js.production.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/jakeoverall/auth0provider-client/browser/AuthProvider.browser.js"></script>
+  <script src="https://cdn.socket.io/4.1.1/socket.io.min.js"
+    integrity="sha384-cdrFIqe3RasCMNE0jeFG9xJHog/tgOVC1E9Lzve8LQN1g5WUHo0Kvk1mawWjxX7a"
+    crossorigin="anonymous"></script>
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
   <script>
+    function convertMagicToIcon(magic) {
+      let magicIcon = ''
+      switch (magic) {
+        case 'mountain':
+          magicIcon += '<i class="fas fa-mountain"></i>'
+          break;
+        case 'air':
+          magicIcon += '<i class="fas fa-wind"></i>'
+          break;
+        case 'water':
+          magicIcon += '<i class="fas fa-tint"></i>'
+          break;
+        case 'fire':
+          magicIcon += '<i class="fas fa-fire-alt"></i>'
+          break;
+      }
+
+      return magicIcon
+    }
+
+    $(document).ready(function () {
+      $.ajax({
+        "url": "http://localhost:3000/api/creature",
+        "type": "GET",
+      }).done(function (res) {
+        console.log(res)
+        // app.creatureController.getAllCreatures(res)
+      })
+    })
     document.addEventListener("dragstart", function (event) {
       app.creaturesController.selectCreature(event.target.id)
     })
@@ -88,13 +127,51 @@
       event.preventDefault();
       app.creaturesController.playCreature(event.target.id)
     })
+    function goToCreationPage() {
+      app.gameController.creationPage()
+    }
+    function createCreature(event) {
+      event.preventDefault()
+      let data = $('#creatureForm').serializeArray()
+
+      console.log(data)
+
+      $.ajax({
+        "type": "POST",
+        "url": "http://localhost:3000/api/creature/create?" + data,
+        "body": JSON.stringify(data),
+        "contentType": "application/json; charset=utf-8"
+      }).done(function (res) {
+        try {
+          console.log(res)
+        } catch (error) {
+          console.log(error)
+        }
+      })
+    }
+    $(document).on('blur', '[name="name"]', function () {
+      $('.creature-title').text(this.value)
+    })
+    $(document).on('blur', '[name="img"]', function () {
+      $('#creaturePrototype').attr('style', "background-image: url('" + this.value + "')")
+    })
+    $(document).on('blur', '[name="description"]', function () {
+      $('#creaturePrototype').attr('title', this.value)
+    })
+    $(document).on('blur', '#magicTypes', function () {
+      let magics = ''
+      $('#magicTypes option:selected').each(function () {
+        magics += convertMagicToIcon(this.value)
+      })
+      $('#cost').html(magics)
+    })
+    $(document).on('blur', '[name="power"]', function () {
+      $('#khanda').text(this.value)
+    })
+    $(document).on('blur', '[name="toughness"]', function () {
+      $('#heart').text(this.value)
+    })
   </script>
-  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-  <script src="https://cdn.auth0.com/js/auth0-spa-js/1.15/auth0-spa-js.production.js"></script>
-  <script src="https://cdn.jsdelivr.net/gh/jakeoverall/auth0provider-client/browser/AuthProvider.browser.js"></script>
-  <script src="https://cdn.socket.io/4.1.1/socket.io.min.js"
-    integrity="sha384-cdrFIqe3RasCMNE0jeFG9xJHog/tgOVC1E9Lzve8LQN1g5WUHo0Kvk1mawWjxX7a"
-    crossorigin="anonymous"></script>
 
   <script src="app/main.js" type="module"></script>
 </body>

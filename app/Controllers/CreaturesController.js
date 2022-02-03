@@ -12,4 +12,7 @@ export class CreaturesController {
   determineAction(id, player) {
     creaturesService.determineAction(id, player)
   }
+  getAllCreatures(creatures) {
+    creaturesService.getAllCreatures(creatures)
+  }
 }

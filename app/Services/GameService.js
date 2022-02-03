@@ -50,6 +50,9 @@ class GameService {
   endGame() {
     ProxyState.game = false
   }
+  creationPage() {
+    ProxyState.creationPage = true
+  }
 }
 
 export const gameService = new GameService()

@@ -10,9 +10,20 @@
   "author": "Jake Overall <joverall22@gmail.com>",
   "license": "ISC",
   "devDependencies": {
-    "sass": "^1.26.10"
+    "sass": "^1.49.0"
   },
   "dependencies": {
-    "bootstrap": "^5.1.0"
+    "axios": "^0.25.0",
+    "body-parser": "^1.19.1",
+    "bootstrap": "^5.1.3",
+    "cors": "^2.8.5",
+    "dotenv": "^9.0.2",
+    "esm": "^3.2.25",
+    "express": "^4.17.2",
+    "helmet": "^4.6.0",
+    "mongoose": "^5.12.10"
+  },
+  "engines": {
+    "node": "^14.0.0"
   }
 }

@@ -107,6 +107,9 @@ class CreaturesService {
   resetAllActions() {
     ProxyState.players[ProxyState.turn].creatures.forEach(c => c.actions = 1)
   }
+  getAllCreatures(creatures) {
+    ProxyState.creatures = creatures
+  }
 }
 
 export const creaturesService = new CreaturesService()

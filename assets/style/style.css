@@ -24,7 +24,17 @@ body {
   background-size: cover;
   min-height: 25vh;
 }
+.creature-img-lg{
+  cursor: pointer;
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-height: 60vh;
+}
 .creature-img:hover{
+  transform: scale(1.1);
+  transition: all linear .2s;
+}
+.creature-img-lg:hover{
   transform: scale(1.1);
   transition: all linear .2s;
 }
@@ -43,6 +53,15 @@ body {
 .creature-stats{
   position: absolute;
   bottom: -25px;
+}
+.prototype{
+  position: absolute;
+  left: 60px;
+}
+.back{
+  position: absolute;
+  right: 5vh;
+  top: 2vh;
 }
 
 .selected{

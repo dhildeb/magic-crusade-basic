@@ -12,6 +12,7 @@ class AppState extends EventEmitter {
   turn = 0
   selected = null
   game = true
+  creationPage = false
 }
 
 export const ProxyState = new Proxy(new AppState(), {
