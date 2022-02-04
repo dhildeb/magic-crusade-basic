@@ -19,9 +19,7 @@ export class CreatureController extends BaseController {
   }
   async createCreature(req, res, next) {
     try {
-      console.log(req.body)
-      let creature = creatureService.createCreature(req.body)
-      console.log(creature)
+      let creature = creatureService.createCreature(req.query)
       res.send(creature)
     } catch (error) {
       next(error)

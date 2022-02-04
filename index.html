@@ -113,8 +113,7 @@
         "url": "http://localhost:3000/api/creature",
         "type": "GET",
       }).done(function (res) {
-        console.log(res)
-        // app.creatureController.getAllCreatures(res)
+        app.creaturesController.getAllCreatures(res)
       })
     })
     document.addEventListener("dragstart", function (event) {
@@ -132,14 +131,12 @@
     }
     function createCreature(event) {
       event.preventDefault()
-      let data = $('#creatureForm').serializeArray()
-
-      console.log(data)
+      let data = $('#creatureForm').serialize()
 
       $.ajax({
         "type": "POST",
         "url": "http://localhost:3000/api/creature/create?" + data,
-        "body": JSON.stringify(data),
+        // "body": JSON.stringify(data),
         "contentType": "application/json; charset=utf-8"
       }).done(function (res) {
         try {
