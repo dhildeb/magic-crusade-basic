@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "serve": "bcw-serve",
     "sass": "sass --watch assets/scss/main.scss:assets/style/main.css"
   },
